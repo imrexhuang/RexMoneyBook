@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MoneyBookDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Categoryyy" Type="int" Nullable="false" />
+          <Property Name="Amounttt" Type="int" Nullable="false" />
+          <Property Name="Dateee" Type="datetime" Nullable="false" />
+          <Property Name="Remarkkk" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CustomUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_CustomUserClaims_dbo_CustomUsers_UserId">
+          <End Role="CustomUsers" Type="Self.CustomUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomUserClaims" Type="Self.CustomUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CustomUserLogins_dbo_CustomUsers_UserId">
+          <End Role="CustomUsers" Type="Self.CustomUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomUserLogins" Type="Self.CustomUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CustomUserRoles_dbo_CustomRoles_RoleId">
+          <End Role="CustomRoles" Type="Self.CustomRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomUserRoles" Type="Self.CustomUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CustomUserRoles_dbo_CustomUsers_UserId">
+          <End Role="CustomUsers" Type="Self.CustomUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomUserRoles" Type="Self.CustomUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MoneyBookDBModelStoreContainer">
+          <EntitySet Name="AccountBook" EntityType="Self.AccountBook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomRoles" EntityType="Self.CustomRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomUserClaims" EntityType="Self.CustomUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomUserLogins" EntityType="Self.CustomUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomUserRoles" EntityType="Self.CustomUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomUsers" EntityType="Self.CustomUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_CustomUserClaims_dbo_CustomUsers_UserId" Association="Self.FK_dbo_CustomUserClaims_dbo_CustomUsers_UserId">
+            <End Role="CustomUsers" EntitySet="CustomUsers" />
+            <End Role="CustomUserClaims" EntitySet="CustomUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CustomUserLogins_dbo_CustomUsers_UserId" Association="Self.FK_dbo_CustomUserLogins_dbo_CustomUsers_UserId">
+            <End Role="CustomUsers" EntitySet="CustomUsers" />
+            <End Role="CustomUserLogins" EntitySet="CustomUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CustomUserRoles_dbo_CustomRoles_RoleId" Association="Self.FK_dbo_CustomUserRoles_dbo_CustomRoles_RoleId">
+            <End Role="CustomRoles" EntitySet="CustomRoles" />
+            <End Role="CustomUserRoles" EntitySet="CustomUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CustomUserRoles_dbo_CustomUsers_UserId" Association="Self.FK_dbo_CustomUserRoles_dbo_CustomUsers_UserId">
+            <End Role="CustomUsers" EntitySet="CustomUsers" />
+            <End Role="CustomUserRoles" EntitySet="CustomUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MoneyBookDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccountBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Categoryyy" Type="Int32" Nullable="false" />
+          <Property Name="Amounttt" Type="Int32" Nullable="false" />
+          <Property Name="Dateee" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Remarkkk" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CustomUsers" Relationship="Self.CustomUserRoles" FromRole="CustomRoles" ToRole="CustomUsers" />
+        </EntityType>
+        <EntityType Name="CustomUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CustomUsers" Relationship="Self.FK_dbo_CustomUserClaims_dbo_CustomUsers_UserId" FromRole="CustomUserClaims" ToRole="CustomUsers" />
+        </EntityType>
+        <EntityType Name="CustomUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CustomUsers" Relationship="Self.FK_dbo_CustomUserLogins_dbo_CustomUsers_UserId" FromRole="CustomUserLogins" ToRole="CustomUsers" />
+        </EntityType>
+        <EntityType Name="CustomUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CustomUserClaims" Relationship="Self.FK_dbo_CustomUserClaims_dbo_CustomUsers_UserId" FromRole="CustomUsers" ToRole="CustomUserClaims" />
+          <NavigationProperty Name="CustomUserLogins" Relationship="Self.FK_dbo_CustomUserLogins_dbo_CustomUsers_UserId" FromRole="CustomUsers" ToRole="CustomUserLogins" />
+          <NavigationProperty Name="CustomRoles" Relationship="Self.CustomUserRoles" FromRole="CustomUsers" ToRole="CustomRoles" />
+        </EntityType>
+        <Association Name="FK_dbo_CustomUserClaims_dbo_CustomUsers_UserId">
+          <End Role="CustomUsers" Type="Self.CustomUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomUserClaims" Type="Self.CustomUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CustomUserLogins_dbo_CustomUsers_UserId">
+          <End Role="CustomUsers" Type="Self.CustomUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomUserLogins" Type="Self.CustomUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CustomUserRoles">
+          <End Role="CustomRoles" Type="Self.CustomRoles" Multiplicity="*" />
+          <End Role="CustomUsers" Type="Self.CustomUsers" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MoneyBookDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountBook" EntityType="Self.AccountBook" />
+          <EntitySet Name="CustomRoles" EntityType="Self.CustomRoles" />
+          <EntitySet Name="CustomUserClaims" EntityType="Self.CustomUserClaims" />
+          <EntitySet Name="CustomUserLogins" EntityType="Self.CustomUserLogins" />
+          <EntitySet Name="CustomUsers" EntityType="Self.CustomUsers" />
+          <AssociationSet Name="FK_dbo_CustomUserClaims_dbo_CustomUsers_UserId" Association="Self.FK_dbo_CustomUserClaims_dbo_CustomUsers_UserId">
+            <End Role="CustomUsers" EntitySet="CustomUsers" />
+            <End Role="CustomUserClaims" EntitySet="CustomUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CustomUserLogins_dbo_CustomUsers_UserId" Association="Self.FK_dbo_CustomUserLogins_dbo_CustomUsers_UserId">
+            <End Role="CustomUsers" EntitySet="CustomUsers" />
+            <End Role="CustomUserLogins" EntitySet="CustomUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="CustomUserRoles" Association="Self.CustomUserRoles">
+            <End Role="CustomRoles" EntitySet="CustomRoles" />
+            <End Role="CustomUsers" EntitySet="CustomUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MoneyBookDBModelStoreContainer" CdmEntityContainer="MoneyBookDBEntities">
+          <EntitySetMapping Name="AccountBook">
+            <EntityTypeMapping TypeName="MoneyBookDBModel.AccountBook">
+              <MappingFragment StoreEntitySet="AccountBook">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Categoryyy" ColumnName="Categoryyy" />
+                <ScalarProperty Name="Amounttt" ColumnName="Amounttt" />
+                <ScalarProperty Name="Dateee" ColumnName="Dateee" />
+                <ScalarProperty Name="Remarkkk" ColumnName="Remarkkk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomRoles">
+            <EntityTypeMapping TypeName="MoneyBookDBModel.CustomRoles">
+              <MappingFragment StoreEntitySet="CustomRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomUserClaims">
+            <EntityTypeMapping TypeName="MoneyBookDBModel.CustomUserClaims">
+              <MappingFragment StoreEntitySet="CustomUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomUserLogins">
+            <EntityTypeMapping TypeName="MoneyBookDBModel.CustomUserLogins">
+              <MappingFragment StoreEntitySet="CustomUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomUsers">
+            <EntityTypeMapping TypeName="MoneyBookDBModel.CustomUsers">
+              <MappingFragment StoreEntitySet="CustomUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CustomUserRoles" TypeName="MoneyBookDBModel.CustomUserRoles" StoreEntitySet="CustomUserRoles">
+            <EndProperty Name="CustomRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="CustomUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
