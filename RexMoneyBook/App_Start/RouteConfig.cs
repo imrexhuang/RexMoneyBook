@@ -17,6 +17,7 @@ namespace RexMoneyBook
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                , namespaces: new[] { "RexMoneyBook.Controllers" } //解決Area Route衝突,講義p.223
             );
         }
     }
