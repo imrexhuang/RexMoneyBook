@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using RexMoneyBook.Models;
 using RexMoneyBook.Models.ViewModels;
 using RexMoneyBook.Repository;
+using X.PagedList;
 
 namespace RexMoneyBook.Service
 {
@@ -19,7 +20,7 @@ namespace RexMoneyBook.Service
             _accountbookRepository = new Repository<AccountBook>(unitOfWork);
         }
 
-        public IEnumerable<SpendingTrackerViewModel> Lookup()
+        public IEnumerable<SpendingTrackerViewModel> Lookup(int currentPageIndex, int defaultPageSize)
         {
             var source = _accountbookRepository.LookupAll();
             var result = source.Select(acctbook => new SpendingTrackerViewModel()
@@ -29,7 +30,7 @@ namespace RexMoneyBook.Service
                 AMOUMT = acctbook.Amounttt,
                 DATE = acctbook.Dateee,
                 REMARK = acctbook.Remarkkk,
-            });
+            }).OrderByDescending(x => x.DATE).ToPagedList(currentPageIndex, defaultPageSize);
             return result;
         }
 

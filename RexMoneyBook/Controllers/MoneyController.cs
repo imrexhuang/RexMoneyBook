@@ -15,6 +15,9 @@ namespace RexMoneyBook.Controllers
         private readonly AccountbookService _accountbookService;
         private readonly UnitOfWork _unitOfWork;
 
+        // 分頁後每頁顯示的筆數
+        private const int defaultPageSize = 20;
+
         public MoneyController()
         {
             _unitOfWork = new UnitOfWork();
@@ -124,9 +127,12 @@ namespace RexMoneyBook.Controllers
         }
 
         // GET: Money
-        public ActionResult List()
+        public ActionResult List(int page = 1)
         {
-            return View(_accountbookService.Lookup());
+            int currentPageIndex = page < 1 ? 1 : page;
+            TempData["CurrentPage"] = currentPageIndex;
+
+            return View(_accountbookService.Lookup(currentPageIndex, defaultPageSize));
         }
 
         [HttpPost, ActionName("Delete")]
