@@ -1,6 +1,6 @@
 ﻿@model DateTime?
 @{
-
+    //p.s.DateTime的格式化是寫在ViewModels
     var value = Model.HasValue
     ? Model.Value.ToString("yyyy-MM-dd")
     : "";

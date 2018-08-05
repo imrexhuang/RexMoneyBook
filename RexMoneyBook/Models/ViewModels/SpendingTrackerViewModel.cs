@@ -17,7 +17,8 @@ namespace RexMoneyBook.Models.ViewModels
         public int TYPE { get; set; }
 
         [DisplayName("日期")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date)] //加了這一條，日期格式會變成yyyy/MM/dd，且<input type="date"
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)] //只好加這一條了
         [Required]
         [CheckDateEarilerThanToday]
         public DateTime DATE { get; set; }
