@@ -19,11 +19,15 @@ namespace RexMoneyBook
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquerydatetimepicker").Include(
+                      "~/Scripts/jquery.datetimepicker.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery.datetimepicker.css",
                       "~/Content/site.css"));
         }
     }
