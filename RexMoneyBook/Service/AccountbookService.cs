@@ -30,7 +30,7 @@ namespace RexMoneyBook.Service
                 AMOUMT = acctbook.Amounttt,
                 DATE = acctbook.Dateee,
                 REMARK = acctbook.Remarkkk,
-            }).OrderByDescending(x => x.DATE).ToPagedList(currentPageIndex, defaultPageSize);
+            }).OrderByDescending(x => x.DATE).ToPagedList(currentPageIndex, defaultPageSize).AsEnumerable();
             return result;
         }
 
